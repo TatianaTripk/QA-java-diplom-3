@@ -1,8 +1,10 @@
 package praktikum.tests;
 
+import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.ValidatableResponse;
 import net.datafaker.Faker;
 import org.junit.After;
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
@@ -12,65 +14,48 @@ import praktikum.steps.UserSteps;
 
 public class LoginTests {
     public WebDriver driver;
+    @Rule
+    public DriverFactory driverFactory = new DriverFactory();
     private Faker faker = new Faker();
     private boolean isUserCreated = false;
     private User user = new User();
     private UserSteps userSteps = new UserSteps();
 
-    @Rule
-    public DriverFactory driverFactory = new DriverFactory();
+    @Before
+    public void startUp() {
+        user.setName(faker.name().firstName());
+        user.setEmail(faker.internet().emailAddress());
+        user.setPassword(faker.internet().password(6, 10));
+        userSteps.signupUser(user);
+        isUserCreated = true;
+    }
 
     @Test
+    @DisplayName("Вход по кнопке «Войти в аккаунт» на главной странице")
     public void upperProfileButtonLoginTest() {
         driver = driverFactory.getDriver();
         MainPage mainPage = new MainPage(driver);
         LogInPage logInPage = new LogInPage(driver);
         ProfilePage profilePage = new ProfilePage(driver);
-        SignUpPage signUpPage = new SignUpPage(driver);
-
-        user.setName(faker.name().firstName());
-        user.setEmail(faker.internet().emailAddress());
-        user.setPassword(faker.internet().password(6, 10, true, false, false));
 
         mainPage.openMainPage();
-        mainPage.clickLowerLoginButton();
-        logInPage.clickSignUpButtonOnLoginPage();
-        signUpPage.fillInNameSignupForm(user.getName());
-        signUpPage.fillInEmailSignupForm(user.getEmail());
-        signUpPage.fillInPasswordSignUpForm(user.getPassword());
-        signUpPage.clickSignUpButtonOnSignupPage();
-        logInPage.checkIfLoginFormIsDisplayed();
-        isUserCreated = true;
-        System.out.println("Created user: " + user.getEmail() + " / " + user.getPassword());
         mainPage.clickUpperProfileButton();
-
         logInPage.fillInEmailLoginForm(user.getEmail());
         logInPage.fillInPasswordLoginForm(user.getPassword());
         logInPage.clickLoginButtonLoginPage();
-       mainPage.clickUpperProfileButton();
-       profilePage.checkIfAccountlistIsDisplayed();
-           }
+        mainPage.clickUpperProfileButton();
+        profilePage.checkIfAccountlistIsDisplayed();
+    }
 
     @Test
+    @DisplayName("Вход через кнопку «Личный кабинет»")
     public void lowerLoginButtonLoginTest() {
         driver = driverFactory.getDriver();
         MainPage mainPage = new MainPage(driver);
         LogInPage logInPage = new LogInPage(driver);
         ProfilePage profilePage = new ProfilePage(driver);
-        SignUpPage signUpPage = new SignUpPage(driver);
-
-        user.setName(faker.name().firstName());
-        user.setEmail(faker.internet().emailAddress());
-        user.setPassword(faker.internet().password(6, 10));
 
         mainPage.openMainPage();
-        mainPage.clickLowerLoginButton();
-        logInPage.clickSignUpButtonOnLoginPage();
-        signUpPage.fillInNameSignupForm(user.getName());
-        signUpPage.fillInEmailSignupForm(user.getEmail());
-        signUpPage.fillInPasswordSignUpForm(user.getPassword());
-        signUpPage.clickSignUpButtonOnSignupPage();
-
         mainPage.clickLowerLoginButton();
         logInPage.fillInEmailLoginForm(user.getEmail());
         logInPage.fillInPasswordLoginForm(user.getPassword());
@@ -80,6 +65,7 @@ public class LoginTests {
     }
 
     @Test
+    @DisplayName("Вход через кнопку в форме регистрации")
     public void signUpFormLoginTest() {
         driver = driverFactory.getDriver();
         MainPage mainPage = new MainPage(driver);
@@ -87,18 +73,7 @@ public class LoginTests {
         SignUpPage signUpPage = new SignUpPage(driver);
         ProfilePage profilePage = new ProfilePage(driver);
 
-        user.setName(faker.name().firstName());
-        user.setEmail(faker.internet().emailAddress());
-        user.setPassword(faker.internet().password(6, 10));
-
         mainPage.openMainPage();
-        mainPage.clickLowerLoginButton();
-        logInPage.clickSignUpButtonOnLoginPage();
-        signUpPage.fillInNameSignupForm(user.getName());
-        signUpPage.fillInEmailSignupForm(user.getEmail());
-        signUpPage.fillInPasswordSignUpForm(user.getPassword());
-        signUpPage.clickSignUpButtonOnSignupPage();
-
         mainPage.clickLowerLoginButton();
         logInPage.clickSignUpButtonOnLoginPage();
         signUpPage.clickLoginButton();
@@ -110,31 +85,21 @@ public class LoginTests {
     }
 
     @Test
+    @DisplayName("Вход через кнопку в форме восстановления пароля")
     public void forgotPasswordButtonLoginTest() {
         driver = driverFactory.getDriver();
         MainPage mainPage = new MainPage(driver);
         LogInPage logInPage = new LogInPage(driver);
         ForgotPasswordPage forgotPasswordPage = new ForgotPasswordPage(driver);
+        ResetPasswordPage resetPasswordPage = new ResetPasswordPage(driver);
         ProfilePage profilePage = new ProfilePage(driver);
-        SignUpPage signUpPage = new SignUpPage(driver);
-
-        user.setName(faker.name().firstName());
-        user.setEmail(faker.internet().emailAddress());
-        user.setPassword(faker.internet().password(6, 10));
-
         mainPage.openMainPage();
         mainPage.clickLowerLoginButton();
-        logInPage.clickSignUpButtonOnLoginPage();
-        signUpPage.fillInNameSignupForm(user.getName());
-        signUpPage.fillInEmailSignupForm(user.getEmail());
-        signUpPage.fillInPasswordSignUpForm(user.getPassword());
-        signUpPage.clickSignUpButtonOnSignupPage();
-
-        mainPage.clickLowerLoginButton();
         logInPage.clickForgotPasswordButton();
-        forgotPasswordPage.fillInEmail();
+        forgotPasswordPage.fillInEmail(user.getEmail());
         forgotPasswordPage.clickRecoverPasswordButton();
-            }
+        resetPasswordPage.checkIfResetPasswordFormIsDisplayed();
+    }
 
 
     @After

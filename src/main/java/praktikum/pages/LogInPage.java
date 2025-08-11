@@ -3,7 +3,7 @@ package praktikum.pages;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import praktikum.util.EnvConfig;
+import org.openqa.selenium.WebElement;
 
 public class LogInPage {
     private static WebDriver driver;
@@ -20,14 +20,15 @@ public class LogInPage {
     private final By loginForm = By.cssSelector(".Auth_form__3qKeq.mb-20");
 
     public void fillInEmailLoginForm(String email) {
-        driver.findElement(loginEmailField).sendKeys(email);
+        WebElement emailField = driver.findElement(loginEmailField);
+        emailField.clear();
+        emailField.sendKeys(email);
     }
-//    public void fillInEmailSignupForm(String email) {
-//        driver.findElement(emailField).sendKeys(email);
-//    }
 
     public void fillInPasswordLoginForm(String password) {
-        driver.findElement(loginPasswordField).sendKeys(password);
+        WebElement passwordField = driver.findElement(loginPasswordField);
+        passwordField.clear();
+        passwordField.sendKeys(password);
     }
 
     public void clickLoginButtonLoginPage() {
@@ -41,6 +42,7 @@ public class LogInPage {
     public void clickForgotPasswordButton() {
         driver.findElement(forgotPasswordButton).click();
     }
+
     public void checkIfLoginFormIsDisplayed() {
         Assert.assertTrue(driver.findElement(loginForm).isDisplayed());
     }

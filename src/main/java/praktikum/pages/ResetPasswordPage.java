@@ -6,10 +6,13 @@ import org.openqa.selenium.WebDriver;
 
 public class ResetPasswordPage {
     private WebDriver driver;
+
     public ResetPasswordPage(WebDriver driver) {
         this.driver = driver;
     }
+
     private final By resetPasswordForm = By.xpath("//div[@class='Auth_login__3hAey']");
+
     public void checkIfResetPasswordFormIsDisplayed() {
         Assert.assertTrue(driver.findElement(resetPasswordForm).isDisplayed());
     }

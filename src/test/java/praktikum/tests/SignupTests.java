@@ -1,5 +1,6 @@
 package praktikum.tests;
 
+import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.ValidatableResponse;
 import net.datafaker.Faker;
 import org.junit.After;
@@ -13,16 +14,16 @@ import praktikum.pages.SignUpPage;
 import praktikum.steps.UserSteps;
 
 public class SignupTests {
+    @Rule
+    public DriverFactory driverFactory = new DriverFactory();
     private WebDriver driver;
     private Faker faker = new Faker();
     private boolean isUserCreated = false;
     private User user = new User();
     private UserSteps userSteps = new UserSteps();
 
-    @Rule
-    public DriverFactory driverFactory = new DriverFactory();
-
     @Test
+    @DisplayName("Успешная регистрация")
     public void successfulSignupTest() {
         driver = driverFactory.getDriver();
 
@@ -46,6 +47,7 @@ public class SignupTests {
     }
 
     @Test
+    @DisplayName("Ошибка для некорректного пароля")
     public void invalidPasswordSignupTest() {
         driver = driverFactory.getDriver();
 
@@ -55,7 +57,7 @@ public class SignupTests {
 
         user.setName(faker.name().firstName());
         user.setEmail(faker.internet().emailAddress());
-        user.setPassword(faker.internet().password(6, 10));
+        user.setPassword(faker.internet().password(4, 5));
 
         mainPage.openMainPage();
         mainPage.clickLowerLoginButton();
@@ -76,6 +78,6 @@ public class SignupTests {
             String token = loginResponse.extract().path("accessToken");
             user.setToken(token);
             userSteps.deleteUser(user);
-         }
+        }
     }
 }

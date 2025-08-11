@@ -24,7 +24,7 @@ public class DriverFactory extends ExternalResource {
     }
 
     private void startYandexBrowser() {
-        System.setProperty("webdriver.chtome.driver", "C:\\Program files\\webdrivers\\yandexdriver.exe");
+        System.setProperty("webdriver.chrome.driver", "C:\\Program files\\webdrivers\\yandexdriver.exe");
         ChromeOptions options = new ChromeOptions();
         options.setBinary("C:\\Users\\Admin\\AppData\\Local\\Yandex\\YandexBrowser\\Application\\browser.exe");
         options.addArguments("--remote-allow-origins=*");

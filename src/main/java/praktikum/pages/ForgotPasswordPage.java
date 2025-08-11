@@ -11,10 +11,10 @@ public class ForgotPasswordPage {
         this.driver = driver;
     }
 
-    private final By emailField = By.cssSelector(".text input__textfield.text_type_main-default");
+    private final By emailField = By.cssSelector("input.text.input__textfield.text_type_main-default");
     private final By recoverPasswordButton = By.cssSelector(".button_button__33qZ0.button_button_type_primary__1O7Bx.button_button_size_medium__3zxIa");
 
-    public void fillInEmail() {
+    public void fillInEmail(String email) {
         driver.findElement(emailField).sendKeys(EnvConfig.VALID_EMAIL);
     }
 
