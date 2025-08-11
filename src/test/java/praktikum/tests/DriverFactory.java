@@ -16,7 +16,7 @@ public class DriverFactory extends ExternalResource {
     }
 
     public void initDriver() {
-        if ("yandex".equals(System.getProperty("yandex"))) {
+        if ("yandex".equals(System.getProperty("browser"))) {
             startYandexBrowser();
         } else {
             startChrome();

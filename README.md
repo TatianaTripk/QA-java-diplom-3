@@ -17,13 +17,14 @@
 mvn clean test
 ```
 Для Yandex Browser:
-```bash
 Скачать YandexWebDriver версии, соответствующей версии установленного у вас YandexBrowser: 
 https://github.com/yandex/YandexDriver
-
+Поместить файл yandexdriver.exe в папку: "C:\\Program files\\webdrivers\\
+```bash
 mvn clean test -Dbrowser=yandex
 ```
 ## Генерация отчета Allure
 
 ```bash
+mvn clean test
 allure serve target/surefire-reports/
