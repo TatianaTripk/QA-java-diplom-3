@@ -1,5 +1,6 @@
 package praktikum.tests;
 
+import io.qameta.allure.Description;
 import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.ValidatableResponse;
 import net.datafaker.Faker;
@@ -31,7 +32,8 @@ public class LoginTests {
     }
 
     @Test
-    @DisplayName("Вход по кнопке «Войти в аккаунт» на главной странице")
+    @DisplayName("Вход по кнопке «Войти в аккаунт»")
+    @Description("Вход в аккаунт по кнопке «Войти в аккаунт» на главной странице")
     public void upperProfileButtonLoginTest() {
         driver = driverFactory.getDriver();
         MainPage mainPage = new MainPage(driver);
@@ -44,11 +46,12 @@ public class LoginTests {
         logInPage.fillInPasswordLoginForm(user.getPassword());
         logInPage.clickLoginButtonLoginPage();
         mainPage.clickUpperProfileButton();
-        profilePage.checkIfAccountlistIsDisplayed();
+        profilePage.checkAccountListIsDisplayed();
     }
 
     @Test
     @DisplayName("Вход через кнопку «Личный кабинет»")
+    @Description("Вход в аккаунт по кнопке «Личный кабинет» на главной странице")
     public void lowerLoginButtonLoginTest() {
         driver = driverFactory.getDriver();
         MainPage mainPage = new MainPage(driver);
@@ -61,11 +64,12 @@ public class LoginTests {
         logInPage.fillInPasswordLoginForm(user.getPassword());
         logInPage.clickLoginButtonLoginPage();
         mainPage.clickUpperProfileButton();
-        profilePage.checkIfAccountlistIsDisplayed();
+        profilePage.checkAccountListIsDisplayed();
     }
 
     @Test
     @DisplayName("Вход через кнопку в форме регистрации")
+    @Description("Вход в аккаунт по кнопке в форме регистрации")
     public void signUpFormLoginTest() {
         driver = driverFactory.getDriver();
         MainPage mainPage = new MainPage(driver);
@@ -81,24 +85,24 @@ public class LoginTests {
         logInPage.fillInPasswordLoginForm(user.getPassword());
         logInPage.clickLoginButtonLoginPage();
         mainPage.clickUpperProfileButton();
-        profilePage.checkIfAccountlistIsDisplayed();
+        profilePage.checkAccountListIsDisplayed();
     }
 
     @Test
     @DisplayName("Вход через кнопку в форме восстановления пароля")
+    @Description("Вход в аккаунт по кнопке в форме восстановления пароля")
     public void forgotPasswordButtonLoginTest() {
         driver = driverFactory.getDriver();
         MainPage mainPage = new MainPage(driver);
         LogInPage logInPage = new LogInPage(driver);
         ForgotPasswordPage forgotPasswordPage = new ForgotPasswordPage(driver);
         ResetPasswordPage resetPasswordPage = new ResetPasswordPage(driver);
-        ProfilePage profilePage = new ProfilePage(driver);
         mainPage.openMainPage();
         mainPage.clickLowerLoginButton();
         logInPage.clickForgotPasswordButton();
         forgotPasswordPage.fillInEmail(user.getEmail());
         forgotPasswordPage.clickRecoverPasswordButton();
-        resetPasswordPage.checkIfResetPasswordFormIsDisplayed();
+        resetPasswordPage.checkResetPasswordFormIsDisplayed();
     }
 
 

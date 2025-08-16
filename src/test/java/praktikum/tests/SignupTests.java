@@ -1,5 +1,6 @@
 package praktikum.tests;
 
+import io.qameta.allure.Description;
 import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.ValidatableResponse;
 import net.datafaker.Faker;
@@ -24,6 +25,7 @@ public class SignupTests {
 
     @Test
     @DisplayName("Успешная регистрация")
+    @Description("Успешная регистрация пользователя")
     public void successfulSignupTest() {
         driver = driverFactory.getDriver();
 
@@ -42,12 +44,13 @@ public class SignupTests {
         signUpPage.fillInEmailSignupForm(user.getEmail());
         signUpPage.fillInPasswordSignUpForm(user.getPassword());
         signUpPage.clickSignUpButtonOnSignupPage();
-        logInPage.checkIfLoginFormIsDisplayed();
+        logInPage.checkLoginFormIsDisplayed();
         isUserCreated = true;
     }
 
     @Test
     @DisplayName("Ошибка для некорректного пароля")
+    @Description("Ошибка при регистрации с невалидным паролем")
     public void invalidPasswordSignupTest() {
         driver = driverFactory.getDriver();
 
@@ -64,9 +67,9 @@ public class SignupTests {
         logInPage.clickSignUpButtonOnLoginPage();
         signUpPage.fillInNameSignupForm(user.getName());
         signUpPage.fillInEmailSignupForm(user.getEmail());
-        signUpPage.fillInInvalidPasswordSignUpForm();
+        signUpPage.fillInInvalidPasswordSignUpForm(user.getPassword());
         signUpPage.clickSignUpButtonOnSignupPage();
-        signUpPage.checkIfPasswordErrorIsDisplayed();
+        signUpPage.checkPasswordErrorIsDisplayed();
         isUserCreated = false;
     }
 

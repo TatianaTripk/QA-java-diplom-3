@@ -37,7 +37,7 @@ public class DriverFactory extends ExternalResource {
         System.setProperty("webdriver.chrome.driver", "C:\\Program files\\webdrivers\\chromedriver.exe");
         ChromeOptions options = new ChromeOptions();
         options.setBrowserVersion("109");
-        driver = new ChromeDriver();
+        driver = new ChromeDriver(options);
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
         driver.manage().window().maximize();
     }

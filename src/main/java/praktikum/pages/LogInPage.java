@@ -1,16 +1,13 @@
 package praktikum.pages;
 
+import io.qameta.allure.Step;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 public class LogInPage {
-    private static WebDriver driver;
-
-    public LogInPage(WebDriver driver) {
-        this.driver = driver;
-    }
+    private final WebDriver driver;
 
     private final By loginEmailField = By.xpath(".//label[text()='Email']/following-sibling::input");
     private final By loginPasswordField = By.xpath(".//input[@type='password']");
@@ -19,31 +16,41 @@ public class LogInPage {
     private final By signupButtonLoginPage = By.cssSelector(".Auth_link__1fOlj");
     private final By loginForm = By.cssSelector(".Auth_form__3qKeq.mb-20");
 
+    public LogInPage(WebDriver driver) {
+        this.driver = driver;
+    }
+
+    @Step
     public void fillInEmailLoginForm(String email) {
         WebElement emailField = driver.findElement(loginEmailField);
         emailField.clear();
         emailField.sendKeys(email);
     }
 
+    @Step
     public void fillInPasswordLoginForm(String password) {
         WebElement passwordField = driver.findElement(loginPasswordField);
         passwordField.clear();
         passwordField.sendKeys(password);
     }
 
+    @Step
     public void clickLoginButtonLoginPage() {
         driver.findElement(loginButton).click();
     }
 
+    @Step
     public void clickSignUpButtonOnLoginPage() {
         driver.findElement(signupButtonLoginPage).click();
     }
 
+    @Step
     public void clickForgotPasswordButton() {
         driver.findElement(forgotPasswordButton).click();
     }
 
-    public void checkIfLoginFormIsDisplayed() {
+    @Step
+    public void checkLoginFormIsDisplayed() {
         Assert.assertTrue(driver.findElement(loginForm).isDisplayed());
     }
 

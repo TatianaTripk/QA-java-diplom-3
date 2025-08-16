@@ -1,16 +1,17 @@
 package praktikum.steps;
 
+import io.qameta.allure.Step;
 import io.restassured.http.ContentType;
 import io.restassured.response.ValidatableResponse;
 import praktikum.model.User;
-import praktikum.pages.SignUpPage;
 import praktikum.util.RestConfig;
 
 import static io.restassured.RestAssured.given;
 
 public class UserSteps {
 
-        public ValidatableResponse signupUser(User user) {
+    @Step
+    public ValidatableResponse signupUser(User user) {
         return given()
                 .contentType(ContentType.JSON)
                 .baseUri(RestConfig.BASE_URL)
@@ -21,6 +22,7 @@ public class UserSteps {
 
     }
 
+    @Step
     public ValidatableResponse loginUser(User user) {
         return given()
                 .contentType(ContentType.JSON)
@@ -31,10 +33,11 @@ public class UserSteps {
                 .then();
     }
 
+    @Step
     public ValidatableResponse deleteUser(User user) {
         return given()
                 .contentType(ContentType.JSON)
-                .baseUri("https://stellarburgers.nomoreparties.site")
+                .baseUri(RestConfig.BASE_URL)
                 .header("Authorization", "Bearer " + user.getToken())
                 .when()
                 .delete(RestConfig.DELETE_USER)
