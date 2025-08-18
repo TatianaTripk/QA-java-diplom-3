@@ -20,36 +20,36 @@ public class LogInPage {
         this.driver = driver;
     }
 
-    @Step
+    @Step("Заполнение поля email")
     public void fillInEmailLoginForm(String email) {
         WebElement emailField = driver.findElement(loginEmailField);
         emailField.clear();
         emailField.sendKeys(email);
     }
 
-    @Step
+    @Step("Заполнение поля пароль")
     public void fillInPasswordLoginForm(String password) {
         WebElement passwordField = driver.findElement(loginPasswordField);
         passwordField.clear();
         passwordField.sendKeys(password);
     }
 
-    @Step
+    @Step("Клик на кнопку 'Войти'")
     public void clickLoginButtonLoginPage() {
         driver.findElement(loginButton).click();
     }
 
-    @Step
+    @Step("Клик на кнопку 'Зарегистрироваться'")
     public void clickSignUpButtonOnLoginPage() {
         driver.findElement(signupButtonLoginPage).click();
     }
 
-    @Step
+    @Step("Клик на кнопку 'Восстановить пароль'")
     public void clickForgotPasswordButton() {
         driver.findElement(forgotPasswordButton).click();
     }
 
-    @Step
+    @Step("Проверка отображения формы авторизации")
     public void checkLoginFormIsDisplayed() {
         Assert.assertTrue(driver.findElement(loginForm).isDisplayed());
     }

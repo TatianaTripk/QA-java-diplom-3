@@ -67,7 +67,7 @@ public class SignupTests {
         logInPage.clickSignUpButtonOnLoginPage();
         signUpPage.fillInNameSignupForm(user.getName());
         signUpPage.fillInEmailSignupForm(user.getEmail());
-        signUpPage.fillInInvalidPasswordSignUpForm(user.getPassword());
+        signUpPage.fillInPasswordSignUpForm(user.getPassword());
         signUpPage.clickSignUpButtonOnSignupPage();
         signUpPage.checkPasswordErrorIsDisplayed();
         isUserCreated = false;

@@ -14,7 +14,7 @@ public class ResetPasswordPage {
         this.driver = driver;
     }
 
-    @Step
+    @Step("Проверка отображения формы восстановления пароля")
     public void checkResetPasswordFormIsDisplayed() {
         Assert.assertTrue(driver.findElement(resetPasswordForm).isDisplayed());
     }

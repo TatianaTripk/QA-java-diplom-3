@@ -26,24 +26,24 @@ public class MainPage {
         this.driver = driver;
     }
 
-    @Step
+    @Step("Открыть главную страницу")
     public void openMainPage() {
         driver.get(RestConfig.BASE_URL);
         new WebDriverWait(driver, Duration.ofSeconds(10))
                 .until(ExpectedConditions.visibilityOfElementLocated(bunButton));
     }
 
-    @Step
+    @Step("Клик на кнопку 'Личный кабинет'")
     public void clickUpperProfileButton() {
         driver.findElement(upperProfileButton).click();
     }
 
-    @Step
+    @Step("Клик на кнопку 'Войти в аккаунт'")
     public void clickLowerLoginButton() {
         driver.findElement(lowerLoginButton).click();
     }
 
-    @Step
+    @Step("Клик на кнопку 'Булки'")
     public void clickBunButton() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
         WebElement elementBun = wait.until(ExpectedConditions.visibilityOfElementLocated(bunButton));
@@ -51,7 +51,7 @@ public class MainPage {
         ((JavascriptExecutor) driver).executeScript("arguments[0].click();", elementBun);
     }
 
-    @Step
+    @Step("Клик на кнопку 'Соусы'")
     public void clickSauceButton() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         WebElement elementSauce = wait.until(ExpectedConditions.visibilityOfElementLocated(sauceButton));
@@ -59,7 +59,7 @@ public class MainPage {
         ((JavascriptExecutor) driver).executeScript("arguments[0].click();", elementSauce);
     }
 
-    @Step
+    @Step("Клик на кнопку 'Начинки'")
     public void clickFillingButton() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         WebElement elementFilling = wait.until(ExpectedConditions.visibilityOfElementLocated(fillingButton));
@@ -67,8 +67,7 @@ public class MainPage {
         ((JavascriptExecutor) driver).executeScript("arguments[0].click();", elementFilling);
     }
 
-
-    @Step
+    @Step("Проверка, активен ли раздел 'Булки'")
     public void checkBunSectionIsActive() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         wait.until(ExpectedConditions.attributeContains(bunButton, "class", ACTIVE_SECTION));
@@ -76,7 +75,7 @@ public class MainPage {
         Assert.assertTrue(bunClass.contains(ACTIVE_SECTION));
     }
 
-    @Step
+    @Step("Проверка, активен ли раздел 'Соусы'")
     public void checkSauceSectionIsActive() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         wait.until(ExpectedConditions.attributeContains(sauceButton, "class", ACTIVE_SECTION));
@@ -84,7 +83,7 @@ public class MainPage {
         Assert.assertTrue(sauceClass.contains(ACTIVE_SECTION));
     }
 
-    @Step
+    @Step("Проверка, активен ли раздел 'Начинки'")
     public void checkFillingSectionIsActive() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         wait.until(ExpectedConditions.attributeContains(fillingButton, "class", ACTIVE_SECTION));

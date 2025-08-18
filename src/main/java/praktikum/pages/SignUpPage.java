@@ -20,37 +20,32 @@ public class SignUpPage {
         this.driver = driver;
     }
 
-    @Step
+    @Step("Заполнение поля имя")
     public void fillInNameSignupForm(String name) {
         driver.findElement(nameField).sendKeys(name);
     }
 
-    @Step
+    @Step("Заполнение поля email")
     public void fillInEmailSignupForm(String email) {
         driver.findElement(emailField).sendKeys(email);
     }
 
-    @Step
+    @Step("Заполнение поля пароль")
     public void fillInPasswordSignUpForm(String password) {
         driver.findElement(passwordField).sendKeys(password);
     }
 
-    @Step
-    public void fillInInvalidPasswordSignUpForm(String password) {
-        driver.findElement(passwordField).sendKeys(password);
-    }
-
-    @Step
+    @Step("Нажатие кнопки 'Зарегистрироваться'")
     public void clickSignUpButtonOnSignupPage() {
         driver.findElement(signUpButton).click();
     }
 
-    @Step
+    @Step("Проверка отображения ошибки 'Некорректный пароль'")
     public void checkPasswordErrorIsDisplayed() {
         Assert.assertTrue(driver.findElement(passwordError).isDisplayed());
     }
 
-    @Step
+    @Step("Клик на кнопку 'Войти'")
     public void clickLoginButton() {
         driver.findElement(signupPageLoginButton).click();
     }

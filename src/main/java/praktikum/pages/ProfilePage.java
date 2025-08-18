@@ -14,7 +14,7 @@ public class ProfilePage {
         this.driver = driver;
     }
 
-    @Step
+    @Step("Проверка отображения раздела 'Профиль'")
     public void checkAccountListIsDisplayed() {
         Assert.assertTrue(driver.findElement(accountList).isDisplayed());
     }

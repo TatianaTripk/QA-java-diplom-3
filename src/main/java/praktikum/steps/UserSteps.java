@@ -10,7 +10,7 @@ import static io.restassured.RestAssured.given;
 
 public class UserSteps {
 
-    @Step
+    @Step("Регистрация пользователя")
     public ValidatableResponse signupUser(User user) {
         return given()
                 .contentType(ContentType.JSON)
@@ -22,7 +22,7 @@ public class UserSteps {
 
     }
 
-    @Step
+    @Step("Авторизация пользователя")
     public ValidatableResponse loginUser(User user) {
         return given()
                 .contentType(ContentType.JSON)
@@ -33,7 +33,7 @@ public class UserSteps {
                 .then();
     }
 
-    @Step
+    @Step("Удаление пользователя")
     public ValidatableResponse deleteUser(User user) {
         return given()
                 .contentType(ContentType.JSON)
